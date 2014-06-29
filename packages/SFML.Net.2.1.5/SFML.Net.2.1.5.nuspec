@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SFML.Net</id>
+    <version>2.1.5</version>
+    <authors>Laurent Gomila</authors>
+    <owners>Laurent Gomila</owners>
+    <licenseUrl>http://www.sfml-dev.org/license.php</licenseUrl>
+    <projectUrl>http://www.sfml-dev.org/</projectUrl>
+    <iconUrl>http://www.sfml-dev.org/images/sfml-icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SFML is a simple multimedia library. This includes the .Net bindings to SFML and the csfml
+		bindings required to use it.</description>
+    <releaseNotes>Release of SFML.Net 2.1</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>sfml net csfml</tags>
+    <dependencies>
+      <dependency id="Baseclass.Contrib.Nuget.Output" />
+    </dependencies>
+  </metadata>
+</package>
