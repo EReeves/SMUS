@@ -9,7 +9,8 @@ namespace SMUS
         public string Path { get; private set; }
         public MetaData MetaData { get; private set; }
 
-        public Song(string _path, Font _font) : base("SongText", _font)
+        public Song(string _path, Font _font)
+            : base("SongText", _font)
         {
             MetaData = new MetaData(_path);
             Path = _path;

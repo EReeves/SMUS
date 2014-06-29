@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using TagLib;
+using File = TagLib.File;
 
 namespace SMUS
 {
@@ -13,11 +14,11 @@ namespace SMUS
         public MetaData(string _path)
         {
             File = TagLib.File.Create(_path);
-            this.File = File;
+            this.File.Tag.CopyTo(this, true);
         }
 
         [Obsolete("Use Dispose.")]
-        public override void Clear(){} //Why not use dispose?
+        public override void Clear() { } //Why not use dispose?
 
         public override TagTypes TagTypes
         { get { throw new System.NotImplementedException(); } }

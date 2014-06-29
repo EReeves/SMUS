@@ -3,18 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMUS", "SMUS\SMUS.csproj", "{25848293-793F-48B7-878F-9D00383F1D4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMUS", "SMUS\SMUS.csproj", "{074AC784-239D-4FF2-A3B2-5968A6F60E30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{25848293-793F-48B7-878F-9D00383F1D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25848293-793F-48B7-878F-9D00383F1D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25848293-793F-48B7-878F-9D00383F1D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25848293-793F-48B7-878F-9D00383F1D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Debug|x86.ActiveCfg = Debug|x86
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Debug|x86.Build.0 = Debug|x86
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Release|x86.ActiveCfg = Release|x86
+		{074AC784-239D-4FF2-A3B2-5968A6F60E30}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
