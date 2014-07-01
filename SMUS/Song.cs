@@ -1,4 +1,8 @@
-﻿using SFML.Graphics;
+﻿using System;
+using System.IO;
+using SFML.Graphics;
+using TagLib;
+using MetaData = TagLib.File;
 
 namespace SMUS
 {
@@ -12,10 +16,19 @@ namespace SMUS
         public Song(string _path, Font _font)
             : base("SongText", _font)
         {
-            MetaData = new MetaData(_path);
             Path = _path;
-            Name = MetaData.Title;
+
+            MetaData = MetaData.Create(_path);           
+            Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+
+            if (String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist) || String.IsNullOrEmpty(MetaData.Tag.Title))
+                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
+
             this.DisplayedString = Name;
+
+            //formatting
+            this.CharacterSize = 14;
+            this.Color = Color.Black;
         }
 
         public void Draw(RenderWindow window)

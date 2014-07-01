@@ -10,3 +10,15 @@ C:\Users\reeve_000\Desktop\Projects\New\SMUS\SMUS\bin\x86\Debug\policy.2.0.tagli
 C:\Users\reeve_000\Desktop\Projects\New\SMUS\SMUS\obj\x86\Debug\SMUS.exe
 C:\Users\reeve_000\Desktop\Projects\New\SMUS\SMUS\obj\x86\Debug\SMUS.pdb
 C:\Users\reeve_000\Desktop\Projects\New\SMUS\SMUS\obj\x86\Debug\SMUS.csprojResolveAssemblyReference.cache
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\SMUS.exe.config
+C:\Users\reeve_000\Desktop\SMUS\SMUS\obj\x86\Debug\SMUS.exe
+C:\Users\reeve_000\Desktop\SMUS\SMUS\obj\x86\Debug\SMUS.pdb
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\SMUS.exe
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\SMUS.pdb
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\policy.2.0.taglib-sharp.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\sfmlnet-audio-2.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\sfmlnet-graphics-2.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\sfmlnet-window-2.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\taglib-sharp.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\policy.2.0.taglib-sharp.config
+C:\Users\reeve_000\Desktop\SMUS\SMUS\obj\x86\Debug\SMUS.csprojResolveAssemblyReference.cache
