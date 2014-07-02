@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace SMUS.Module
 
         public ProgressBar(Locks locks, RenderWindow window) : base(locks, window)
         {
-            Texture tex = new Texture(1,1);
+            Texture tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
             sprite = new Sprite(tex)
             {
                 Position = new Vector2f(0,0),
@@ -25,8 +26,8 @@ namespace SMUS.Module
         public override void Update()
         {
             if (Audio.Current == null || Audio.Current.PlayPosition == 0) return;
-            float percentage = (float)Audio.Current.PlayLength/(float)Audio.Current.PlayPosition+1;
-            sprite.Scale = new Vector2f(Window.Size.X/percentage,Window.Size.Y);
+            float percentage = Audio.Current.PlayLength / (float)Audio.Current.PlayPosition;
+            sprite.Scale = new Vector2f(Window.Size.X / percentage,Window.Size.Y);
             sprite.Draw(Window, RenderStates.Default);
         }
     }

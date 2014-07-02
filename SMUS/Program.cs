@@ -12,21 +12,26 @@ namespace SMUS
 
         static void Main(string[] args)
         {
-            RenderWindow window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
+            var cs = new ContextSettings(32, 16, 2);
+            RenderWindow window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None, cs);
             window.SetFramerateLimit(60);
 
             Font font = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
 
             ModuleContainer moduleContainer = new ModuleContainer();
 
+
             ProgressBar pBar = new ProgressBar(moduleContainer.Locks, window);
             SongList songList = new SongList(moduleContainer.Locks, window, font);
             DragWindow dragWindow = new DragWindow(moduleContainer.Locks, window);
+            PlayButton playButton = new PlayButton(moduleContainer.Locks,window);
             Border border = new Border(moduleContainer.Locks, window);
+
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
             moduleContainer.AddModule(dragWindow);
+            moduleContainer.AddModule(playButton);
             moduleContainer.AddModule(border);
 
             songList.LoadFromDirectory("C:/Users/reeve_000/Desktop/Music");
@@ -35,8 +40,8 @@ namespace SMUS
             {
                 window.DispatchEvents();
                 window.Clear(new Color(70,50,40));
+
                 moduleContainer.Update();
-                // list.Update(window);
 
                 window.Display();
             }

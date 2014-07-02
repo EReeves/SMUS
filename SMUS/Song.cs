@@ -64,10 +64,10 @@ namespace SMUS
         {
             this.Position += new Vector2f(0, 1);
             this.Color = Color.Black;
-            window.Draw(this);
+            window.Draw(this,RenderStates.Default);
             this.Position -= new Vector2f(0, 1);
             this.Color = Color.White;
-            window.Draw(this);
+            window.Draw(this,RenderStates.Default);
         }
 
         public void Update()

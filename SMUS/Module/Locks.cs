@@ -5,6 +5,7 @@ namespace SMUS.Module
 {
     class Locks
     {
+        //Ended up not using this.
         public delegate void LockDelegate();
         private readonly Dictionary<string, bool> locks = new Dictionary<string, bool>();
 

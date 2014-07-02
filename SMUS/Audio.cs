@@ -26,6 +26,22 @@ namespace SMUS
             return true;    
         }
 
+        public static bool Play()
+        {
+            if (Current == null) return false;
+
+            Engine.SetAllSoundsPaused(false);
+            IsPlaying = true;
+            return true;
+        }
+
+        public static void Pause()
+        {
+            Engine.SetAllSoundsPaused(true);
+            IsPlaying = false;
+        }
+
+
         public static void Stop()
         {
             IsPlaying = false;
