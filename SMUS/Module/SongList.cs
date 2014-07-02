@@ -10,17 +10,19 @@ namespace SMUS
 {
     class SongList : List<Song>, IModule
     {
-        private Vector2f basePosition = new Vector2f(0, 0);
+        private readonly Vector2f basePosition = new Vector2f(2, 0);
         private bool updateText = true;
-        private float yVelocity = 0;
+        private float yScroll = 0;
         
         public RenderWindow Window { get; set; }
+        public Locks Locks { get; set; }
         public Font Font { get; set; }
 
-        public SongList(RenderWindow _window, Font _font)
+        public SongList(Locks locks, RenderWindow window, Font font)
         {
-            Window = _window;
-            Font = _font;
+            Locks = locks;
+            Window = window;
+            Font = font;
 
             Window.MouseWheelMoved += (o, e) =>
             {
@@ -28,33 +30,38 @@ namespace SMUS
                 switch (e.Delta)
                 {
                     case 1:
-                        yVelocity += 1;
+                        if(BoundsUp())
+                            yScroll += 30;
                         break;
                     case -1:
-                        yVelocity -= 1;
+                        if (BoundsDown())
+                            yScroll -= 30;
                         break;
                 }
             };
 
         }
 
+        public bool BoundsDown()
+        {
+            //4 offset from bottom.
+            return this[Count - 1].Position.Y + 4 > Window.Size.Y;
+        }
+
+        public bool BoundsUp()
+        {
+            return this[0].Position.Y < 0;
+        }
+
         public void Update()
         {
             if (this.Count > 0)
                 DrawSongText();
-
-            if (yVelocity > 0)
-                yVelocity -= 0.5f;
-            else if (yVelocity > 0)
-                yVelocity += 0.5f;
-
-
-            basePosition += new Vector2f(0,yVelocity);
         }
 
         public void LoadFromDirectory(string path)
         {
-            Regex regx = new Regex(@".*\.(wav|ogg|mp3|flac|mod|mod|it|s3d|xm)");
+            Regex regx = new Regex(@".*\.(wav|ogg|mp3|flac|mod|it|s3d|xm)");
             string[] fileList = System.IO.Directory.GetFiles(path, "*.*", System.IO.SearchOption.AllDirectories)
                 .Where(s => regx.IsMatch(s))
                 .ToArray();
@@ -71,7 +78,7 @@ namespace SMUS
             {
                 if (updateText)
                 {
-                    this[i].Position = basePosition + new Vector2f(0,yVelocity);
+                    this[i].Position = basePosition + new Vector2f(0,yScroll);
                     float charHeight = this.First().GetLocalBounds().Height + 2;
                     this[i].Position += new Vector2f(0, charHeight*i);
                 }

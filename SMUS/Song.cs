@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using SFML.Graphics;
+using SFML.Window;
 using TagLib;
 using MetaData = TagLib.File;
 
@@ -18,21 +19,40 @@ namespace SMUS
         {
             Path = _path;
 
-            MetaData = MetaData.Create(_path);           
-            Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+            MetaData = MetaData.Create(_path);
 
-            if (String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist) || String.IsNullOrEmpty(MetaData.Tag.Title))
-                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
+            SetNameFromMetaData();
 
             this.DisplayedString = Name;
 
             //formatting
             this.CharacterSize = 14;
             this.Color = Color.Black;
+            
+        }
+
+        private void SetNameFromMetaData()
+        {
+            bool title = !String.IsNullOrEmpty(MetaData.Tag.Title);
+            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist);
+
+            if (title && artist)
+            {
+                Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+            }
+            else
+            {
+                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
+            }
         }
 
         public void Draw(RenderWindow window)
         {
+            this.Position += new Vector2f(0, 1);
+            this.Color = Color.Black;
+            window.Draw(this);
+            this.Position -= new Vector2f(0, 1);
+            this.Color = Color.White;
             window.Draw(this);
         }
 

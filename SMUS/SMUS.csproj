@@ -38,6 +38,9 @@
     <OutputPath>bin\x86\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="irrKlang.NET4">
+      <HintPath>..\lib\iirklang\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="policy.2.0.taglib-sharp">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
@@ -62,7 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Module\Border.cs" />
     <Compile Include="Module\DragWindow.cs" />
+    <Compile Include="Module\Locks.cs" />
     <Compile Include="Module\Module.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,10 +78,14 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)\lib\SFML.Net-2.1\extlibs\*.dll" "$(TargetDir)"
-xcopy "$(SolutionDir)Resources" "$(TargetDir)Resources\" /s /e /h /y</PreBuildEvent>
+xcopy "$(SolutionDir)Resources" "$(TargetDir)Resources\" /s /e /h /y
+copy "$(SolutionDir)\lib\iirklang\*.dll" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
