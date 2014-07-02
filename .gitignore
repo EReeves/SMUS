@@ -1,1 +1,4 @@
 bin/
+*.vpsx
+*.psess
+*.user
