@@ -68,7 +68,6 @@
     <Compile Include="Audio.cs" />
     <Compile Include="Module\Border.cs" />
     <Compile Include="Module\DragWindow.cs" />
-    <Compile Include="Module\Locks.cs" />
     <Compile Include="Module\Module.cs" />
     <Compile Include="Module\PlayButton.cs" />
     <Compile Include="Module\ProgressBar.cs" />
@@ -80,9 +79,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

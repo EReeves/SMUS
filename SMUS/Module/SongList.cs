@@ -1,70 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using SFML.Graphics;
 using SFML.Window;
-using SMUS.Module;
 
-namespace SMUS
+namespace SMUS.Module
 {
-    class SongList : List<Song>, IModule
+    internal class SongList : List<Song>, IModule
     {
+        private const float charHeight = 14;
         private readonly Vector2f basePosition = new Vector2f(5, 0);
         private bool updateText = true;
-        private float yScroll = 0;
-        private const float charHeight = 14;
-        
-        public RenderWindow Window { get; set; }
-        public Locks Locks { get; set; }
+        private float yScroll;
+
         public Font Font { get; set; }
 
-        public SongList(Locks locks, RenderWindow window, Font font)
+        public SongList(Font font)
         {
-            Locks = locks;
-            Window = window;
             Font = font;
-
-            Window.MouseWheelMoved += (o, e) =>
-            {
-                updateText = true;
-                switch (e.Delta)
-                {
-                    case 1:
-                        if(BoundsUp())
-                            yScroll += charHeight*2;
-                        break;
-                    case -1:
-                        if (BoundsDown())
-                            yScroll -= charHeight*2;
-                        break;
-                }
-            };
-
-        }
-
-        public bool BoundsDown()
-        {
-            //4 offset from bottom.
-            return this[Count - 1].Position.Y + 4 > Window.Size.Y;
-        }
-
-        public bool BoundsUp()
-        {
-            return this[0].Position.Y < 0;
+            Program.Window.MouseWheelMoved += (o, e) => ScrollText(e);
         }
 
         public void Update()
         {
             PixelSnap();
 
-            if (this.Count > 0)
+            //Draw
+            if (Count > 0)
                 DrawSongText();
 
+            //Update all songs
             foreach (Song song in this)
-            {
                 song.Update();
+        }
+
+        public void LoadFromDirectory(string path)
+        {
+            var regx = new Regex(@".*\.(wav|ogg|mp3|flac|mod|it|s3d|xm)");
+            string[] fileList = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(s => regx.IsMatch(s))
+                .ToArray();
+            foreach (string s in fileList)
+            {
+                Add(new Song(this, s, Font));
             }
+        }
+
+        public void LoadFromMultipleDirectories(IEnumerable<string> paths)
+        {
+            foreach (string path in paths)
+                LoadFromDirectory(path);
+        }
+
+        private void DrawSongText()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                //Only update position when needed.
+                if (updateText)
+                {
+                    this[i].Position = basePosition + new Vector2f(0, yScroll);
+                    this[i].Position += new Vector2f(0, charHeight*i);
+                }
+                this[i].Draw(Program.Window);
+            }
+
+            if (updateText)
+                updateText = false;
+        }
+
+        private bool BoundsDown()
+        {
+            //Able to scroll up?
+            return this[Count - 1].Position.Y + 4 > Program.Window.Size.Y;
+        }
+
+        private bool BoundsUp()
+        {
+            //Able to scroll down?
+            return this[0].Position.Y < 0;
         }
 
         private void PixelSnap()
@@ -77,34 +92,20 @@ namespace SMUS
                 yScroll += 1;
         }
 
-        public void LoadFromDirectory(string path)
+        private void ScrollText(MouseWheelEventArgs e)
         {
-            Regex regx = new Regex(@".*\.(wav|ogg|mp3|flac|mod|it|s3d|xm)");
-            string[] fileList = System.IO.Directory.GetFiles(path, "*.*", System.IO.SearchOption.AllDirectories)
-                .Where(s => regx.IsMatch(s))
-                .ToArray();
-            foreach (string s in fileList)
+            updateText = true;
+            switch (e.Delta)
             {
-                Add(new Song(this, Window, s, Font));
+                case 1:
+                    if (BoundsUp())
+                        yScroll += charHeight * 2;
+                    break;
+                case -1:
+                    if (BoundsDown())
+                        yScroll -= charHeight * 2;
+                    break;
             }
         }
-
-
-        private void DrawSongText()
-        {
-            for (int i = 0; i < this.Count; i++)
-            {
-                if (updateText)
-                {
-                    this[i].Position = basePosition + new Vector2f(0,yScroll);
-                    this[i].Position += new Vector2f(0, charHeight*i);
-                }
-                this[i].Draw(Window);
-            }
-
-            if (updateText)
-                updateText = false;
-        }
-
     }
 }

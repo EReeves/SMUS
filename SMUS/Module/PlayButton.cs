@@ -1,51 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Runtime.Remoting.Messaging;
+using System.Xml.Serialization;
 using SFML.Graphics;
 using SFML.Window;
 
 namespace SMUS.Module
 {
-    class PlayButton : Module
+    internal class PlayButton : Module
     {
-        private Sprite sprite;
-        private readonly Texture playTex;
         private readonly Texture pauseTex;
-        private bool click;
+        private readonly Texture playTex;
+        private bool leftClick;
+        private Sprite sprite;
 
-        public PlayButton(Locks locks, RenderWindow window) : base(locks, window)
+        public PlayButton()
         {
             playTex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/play.png");
             pauseTex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/pause.png");
-            sprite = new Sprite(playTex)
-            {
-                Position = new Vector2f(Window.Size.X - (playTex.Size.X + playTex.Size.X / 4),
-                    (Window.Size.Y - playTex.Size.Y) / 2),
-                Color = new Color(255, 255, 255, 170)
-            };
-            Window.MouseButtonPressed += (o, e) =>
+            //sprite is initialized here.
+            SetTexture(playTex);
+
+            Program.Window.MouseButtonPressed += (o, e) =>
             {
                 if (e.Button == Mouse.Button.Left)
-                    click = true;
+                    leftClick = true;
             };
         }
 
         public void ClickCheck()
         {
-            var e = Mouse.GetPosition(Window);
+            //Handles pausing/resuming.
+            if (!leftClick) return;
+            leftClick = false;
 
-
-
-            if (!click) return;
-            click = false;
-
-            if (!(e.X >= sprite.Position.X) || !(e.Y >= sprite.Position.Y) ||
-                !(e.X <= sprite.Position.X + sprite.Texture.Size.X) ||
-                !(e.Y <= sprite.Position.Y + sprite.Texture.Size.Y)) return;
+            if (!MouseInBounds()) return;
 
             if (Audio.IsPlaying)
                 Audio.Pause();
@@ -55,22 +43,7 @@ namespace SMUS.Module
 
         public void SpriteCheck()
         {
-            if (Audio.IsPlaying)
-            {
-                sprite = new Sprite(pauseTex)
-                {
-                    Position = new Vector2f(Window.Size.X - (pauseTex.Size.X + pauseTex.Size.X / 3),
-                        (Window.Size.Y - pauseTex.Size.Y) / 2)
-                };
-            }
-            else
-            {
-                sprite = new Sprite(playTex)
-                {
-                    Position = new Vector2f(Window.Size.X - (playTex.Size.X + playTex.Size.X / 3),
-                        (Window.Size.Y - playTex.Size.Y) / 2)
-                };
-            }
+            SetTexture(Audio.IsPlaying ? pauseTex : playTex);
         }
 
         public override void Update()
@@ -78,13 +51,33 @@ namespace SMUS.Module
             SpriteCheck();
             ClickCheck();
 
-            sprite.Position += new Vector2f(1,1);
+            //Drop shadow.
+            sprite.Position += new Vector2f(1, 1);
             sprite.Color = new Color(20, 20, 20, 100);
-            sprite.Draw(Window, RenderStates.Default);
+            sprite.Draw(Program.Window, RenderStates.Default);
 
+            //Main draw.
             sprite.Position -= new Vector2f(1, 1);
             sprite.Color = new Color(255, 255, 255, 190);
-            sprite.Draw(Window,RenderStates.Default);   
+            sprite.Draw(Program.Window, RenderStates.Default);
+        }
+
+        private void SetTexture(Texture tex)
+        {
+            sprite = new Sprite(tex)
+            {
+                Position = new Vector2f(Program.Window.Size.X - (tex.Size.X + tex.Size.X / 3),
+                    (float)(Program.Window.Size.Y - tex.Size.Y) / 2)
+            };
+        }
+
+        private bool MouseInBounds()
+        {
+            Vector2i e = Mouse.GetPosition(Program.Window);
+
+            return e.X >= sprite.Position.X && e.Y >= sprite.Position.Y &&
+                   e.X <= sprite.Position.X + sprite.Texture.Size.X &&
+                   e.Y <= sprite.Position.Y + sprite.Texture.Size.Y;
         }
     }
 }

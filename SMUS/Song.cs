@@ -1,23 +1,22 @@
 ﻿using System;
-using System.IO;
 using SFML.Graphics;
 using SFML.Window;
-using TagLib;
+using SMUS.Module;
 using MetaData = TagLib.File;
 
 namespace SMUS
 {
     //Contains both render and song data.
-    class Song : Text
+    internal class Song : Text
     {
+        private readonly SongList songList;
+
+        public bool IsPlaying = false;
         public string Name { get; private set; }
         public string Path { get; private set; }
         public MetaData MetaData { get; private set; }
-        public bool IsPlaying = false;
 
-        private SongList songList;
-
-        public Song(SongList _songList, Window window, string _path, Font _font)
+        public Song(SongList _songList, string _path, Font _font)
             : base("SongText", _font)
         {
             Path = _path;
@@ -25,49 +24,25 @@ namespace SMUS
 
             MetaData = MetaData.Create(_path);
             SetNameFromMetaData();
-            this.DisplayedString = Name;
+            DisplayedString = Name;
 
             //formatting
-            this.CharacterSize = 14;
-            this.Color = Color.Black;
+            CharacterSize = 14;
+            Color = Color.Black;
 
-            window.MouseButtonPressed += (o, e) => CollisionCheck(window, e);
-
-        }
-
-        private void SetNameFromMetaData()
-        {
-            bool title = !String.IsNullOrEmpty(MetaData.Tag.Title);
-            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist);
-
-            if (title && artist)
-            {
-                Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
-            }
-            else
-            {
-                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
-            }
-        }
-
-        private void CollisionCheck(Window window, MouseButtonEventArgs e)
-        {
-            if (e.Button != Mouse.Button.Left) return;
-            if (!(Position.Y >= 0) || !(Position.Y <= window.Size.Y)) return;
-            var pos = Mouse.GetPosition(window);
-            if (pos.X >= Position.X && pos.Y >= Position.Y &&
-                pos.X - Position.X <= GetLocalBounds().Width && pos.Y - Position.Y <= GetLocalBounds().Height)
-            Play();
+            Program.Window.MouseButtonPressed += (o, e) => CollisionCheck(e);
         }
 
         public void Draw(RenderWindow window)
         {
-            this.Position += new Vector2f(0, 1);
-            this.Color = Color.Black;
-            window.Draw(this,RenderStates.Default);
-            this.Position -= new Vector2f(0, 1);
-            this.Color = Color.White;
-            window.Draw(this,RenderStates.Default);
+            //Shadow
+            Position += new Vector2f(0, 1);
+            Color = Color.Black;
+            window.Draw(this, RenderStates.Default);
+            //Text
+            Position -= new Vector2f(0, 1);
+            Color = Color.White;
+            window.Draw(this, RenderStates.Default);
         }
 
         public void Update()
@@ -85,8 +60,8 @@ namespace SMUS
             }
 
             if (Audio.Current.PlayPosition < Audio.Current.PlayLength - 10) return;
-            IsPlaying = false;
             PlayNext();
+            IsPlaying = false;
         }
 
         public void Play()
@@ -102,8 +77,32 @@ namespace SMUS
             if (songList.Count < index)
                 index = -1;
 
-            songList[index+1].Play();
+            songList[index + 1].Play();
         }
 
+        private void SetNameFromMetaData()
+        {
+            bool title = !String.IsNullOrEmpty(MetaData.Tag.Title);
+            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist);
+
+            if (title && artist)
+            {
+                Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+            }
+            else
+            {
+                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
+            }
+        }
+
+        private void CollisionCheck(MouseButtonEventArgs e)
+        {
+            if (e.Button != Mouse.Button.Left) return;
+            if (!(Position.Y >= 0) || !(Position.Y <= Program.Window.Size.Y)) return;
+            Vector2i pos = Mouse.GetPosition(Program.Window);
+            if (pos.X >= Position.X && pos.Y >= Position.Y &&
+                pos.X - Position.X <= GetLocalBounds().Width && pos.Y - Position.Y <= GetLocalBounds().Height)
+                Play();
+        }
     }
 }

@@ -3,7 +3,8 @@ using IrrKlang;
 
 namespace SMUS
 {
-    class Audio
+    //Might as well be static considering it's on another thread.
+    internal static class Audio
     {
         public static ISoundEngine Engine = new ISoundEngine();
         public static ISound Current;
@@ -23,7 +24,7 @@ namespace SMUS
             {
                 return false;
             }
-            return true;    
+            return true;
         }
 
         public static bool Play()
@@ -40,7 +41,6 @@ namespace SMUS
             Engine.SetAllSoundsPaused(true);
             IsPlaying = false;
         }
-
 
         public static void Stop()
         {

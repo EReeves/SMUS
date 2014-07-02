@@ -22,3 +22,4 @@ C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\sfmlnet-window-2.dll
 C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\taglib-sharp.dll
 C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\policy.2.0.taglib-sharp.config
 C:\Users\reeve_000\Desktop\SMUS\SMUS\bin\x86\Debug\irrKlang.NET4.dll
+C:\Users\reeve_000\Desktop\SMUS\SMUS\obj\x86\Debug\SMUS.csprojResolveAssemblyReference.cache

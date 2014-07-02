@@ -1,32 +1,51 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using SFML.Graphics;
 using SFML.Window;
 using SMUS.Module;
 
 namespace SMUS
 {
-    class Program
+    internal class Program
     {
         public static bool IsRunning = true;
+        public static RenderWindow Window;
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var cs = new ContextSettings(32, 16, 2);
-            RenderWindow window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None, cs);
-            window.SetFramerateLimit(60);
+            Window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
+            Window.SetFramerateLimit(60);
 
-            Font font = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
+            //Container
+            var moduleContainer = new ModuleContainer();
 
-            ModuleContainer moduleContainer = new ModuleContainer();
+            LoadModules(moduleContainer);
 
+            //Main loop
+            while (IsRunning)
+            {
+                Window.DispatchEvents();
+                Window.Clear(new Color(70, 50, 40));
 
-            ProgressBar pBar = new ProgressBar(moduleContainer.Locks, window);
-            SongList songList = new SongList(moduleContainer.Locks, window, font);
-            DragWindow dragWindow = new DragWindow(moduleContainer.Locks, window);
-            PlayButton playButton = new PlayButton(moduleContainer.Locks,window);
-            Border border = new Border(moduleContainer.Locks, window);
+                moduleContainer.Update();
 
+                Window.Display();
+            }
+        }
+
+        private static void LoadModules(ModuleContainer moduleContainer)
+        {
+            //Global resource/s.
+            var baseFont = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
+
+            //Modules
+            /*  Modules shouldn't depend on other modules unless absolutely neccessary.
+             *  Draw order is determined by the order they are added to the container.
+             */
+            var pBar = new ProgressBar();
+            var songList = new SongList(baseFont);
+            var dragWindow = new DragWindow();
+            var playButton = new PlayButton();
+            var border = new Border();
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
@@ -34,17 +53,8 @@ namespace SMUS
             moduleContainer.AddModule(playButton);
             moduleContainer.AddModule(border);
 
+            //Module specific resources
             songList.LoadFromDirectory("C:/Users/reeve_000/Desktop/Music");
-
-            while (IsRunning)
-            {
-                window.DispatchEvents();
-                window.Clear(new Color(70,50,40));
-
-                moduleContainer.Update();
-
-                window.Display();
-            }
         }
     }
 }

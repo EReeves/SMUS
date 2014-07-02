@@ -1,18 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using SFML.Graphics;
 
 namespace SMUS.Module
 {
-    class ModuleContainer
+    internal class ModuleContainer
     {
         private readonly List<IModule> modules = new List<IModule>();
-        public readonly Locks Locks = new Locks();
-
-        public ModuleContainer()
-        {
-            
-        }
 
         public void AddModule(IModule module)
         {
@@ -28,24 +20,13 @@ namespace SMUS.Module
         }
     }
 
-    abstract class Module : IModule
+    internal abstract class Module : IModule
     {
-        public RenderWindow Window { get; set; }
-        public Locks Locks { get; set; }
-
-        protected Module(Locks locks, RenderWindow window)
-        {
-            Window = window;
-            Locks = locks;
-        }
-
         public abstract void Update();
     }
 
-    interface IModule
+    internal interface IModule
     {
-        RenderWindow Window { get; set; }
-        Locks Locks { get; set; }
         void Update();
     }
 }
