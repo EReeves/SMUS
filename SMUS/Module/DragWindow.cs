@@ -37,8 +37,10 @@ namespace SMUS.Module
             }
             else if (Mouse.IsButtonPressed(Mouse.Button.Right))
             {
+                var pos = Mouse.GetPosition(Window);
+                if (pos.X < 0 || pos.Y < 0 || pos.X > Window.Size.X || pos.Y > Window.Size.Y) return;
                 Locks.Use("windowmove", () => { });
-                
+
                 drag = true;
                 mousePos = Mouse.GetPosition();
             }

@@ -65,10 +65,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio.cs" />
     <Compile Include="Module\Border.cs" />
     <Compile Include="Module\DragWindow.cs" />
     <Compile Include="Module\Locks.cs" />
     <Compile Include="Module\Module.cs" />
+    <Compile Include="Module\ProgressBar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Song.cs" />

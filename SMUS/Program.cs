@@ -12,17 +12,19 @@ namespace SMUS
 
         static void Main(string[] args)
         {
-            RenderWindow window = new RenderWindow(new VideoMode(550, 100), "Smus", Styles.None);
+            RenderWindow window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
             window.SetFramerateLimit(60);
 
             Font font = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
 
             ModuleContainer moduleContainer = new ModuleContainer();
 
+            ProgressBar pBar = new ProgressBar(moduleContainer.Locks, window);
             SongList songList = new SongList(moduleContainer.Locks, window, font);
             DragWindow dragWindow = new DragWindow(moduleContainer.Locks, window);
             Border border = new Border(moduleContainer.Locks, window);
 
+            moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
             moduleContainer.AddModule(dragWindow);
             moduleContainer.AddModule(border);
@@ -32,7 +34,7 @@ namespace SMUS
             while (IsRunning)
             {
                 window.DispatchEvents();
-                window.Clear(new Color(70,40,30));
+                window.Clear(new Color(70,50,40));
                 moduleContainer.Update();
                 // list.Update(window);
 

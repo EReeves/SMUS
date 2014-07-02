@@ -10,9 +10,10 @@ namespace SMUS
 {
     class SongList : List<Song>, IModule
     {
-        private readonly Vector2f basePosition = new Vector2f(2, 0);
+        private readonly Vector2f basePosition = new Vector2f(5, 0);
         private bool updateText = true;
         private float yScroll = 0;
+        private const float charHeight = 14;
         
         public RenderWindow Window { get; set; }
         public Locks Locks { get; set; }
@@ -31,11 +32,11 @@ namespace SMUS
                 {
                     case 1:
                         if(BoundsUp())
-                            yScroll += 30;
+                            yScroll += charHeight*2;
                         break;
                     case -1:
                         if (BoundsDown())
-                            yScroll -= 30;
+                            yScroll -= charHeight*2;
                         break;
                 }
             };
@@ -55,8 +56,25 @@ namespace SMUS
 
         public void Update()
         {
+            PixelSnap();
+
             if (this.Count > 0)
                 DrawSongText();
+
+            foreach (Song song in this)
+            {
+                song.Update();
+            }
+        }
+
+        private void PixelSnap()
+        {
+            //Shouldn't be needed but just in case snap it.
+            float diff = yScroll % charHeight;
+            if (diff > 0)
+                yScroll -= 1;
+            else if (diff < 0)
+                yScroll += 1;
         }
 
         public void LoadFromDirectory(string path)
@@ -67,7 +85,7 @@ namespace SMUS
                 .ToArray();
             foreach (string s in fileList)
             {
-                Add(new Song(s, Font));
+                Add(new Song(this, Window, s, Font));
             }
         }
 
@@ -79,7 +97,6 @@ namespace SMUS
                 if (updateText)
                 {
                     this[i].Position = basePosition + new Vector2f(0,yScroll);
-                    float charHeight = this.First().GetLocalBounds().Height + 2;
                     this[i].Position += new Vector2f(0, charHeight*i);
                 }
                 this[i].Draw(Window);
