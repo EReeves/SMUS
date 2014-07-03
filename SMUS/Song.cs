@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using SFML.Graphics;
 using SFML.Window;
 using SMUS.Module;
@@ -84,20 +85,40 @@ namespace SMUS
         private void SetNameFromMetaData()
         {
             bool title = !String.IsNullOrEmpty(MetaData.Tag.Title);
-            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist);
+            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstPerformer);
 
             if (title && artist)
             {
+                Name = MetaData.Tag.FirstPerformer + " - " + MetaData.Tag.Title;
+            }
+            else if (!String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist) && title)
+            {
                 Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+            }
+            else if (!title && artist)
+            {
+                Name = MetaData.Tag.FirstPerformer + " - " +
+                       Regex.Replace(System.IO.Path.GetFileNameWithoutExtension(Path), @"[\d-]", "",
+                           RegexOptions.Multiline)
+                           .TrimStart();
             }
             else
             {
-                Name = System.IO.Path.GetFileNameWithoutExtension(Path);
+                Name = "Unknown Artist - " +              
+                    Regex.Replace(System.IO.Path.GetFileNameWithoutExtension(Path), @"[\d-]", "",
+                           RegexOptions.Multiline)
+                           .TrimStart();
             }
+
+            //Flacs seem to stay for some reason, manually remove.
+            Name = Name.Replace(".flac", "");
+            //Remove the brackets left over on duplicate files in Windows.
+            Name = Name.Replace("()", "");
         }
 
         private void CollisionCheck(MouseButtonEventArgs e)
         {
+            if (!Program.WindowFocused) return;
             if (e.Button != Mouse.Button.Left) return;
             if (!(Position.Y >= 0) || !(Position.Y <= Program.Window.Size.Y)) return;
             Vector2i pos = Mouse.GetPosition(Program.Window);

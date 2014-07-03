@@ -62,6 +62,12 @@ namespace SMUS.Module
                 LoadFromDirectory(path);
         }
 
+        public void SortByArtist()
+        {
+            this.Sort((x, y) => System.String.Compare(x.Name,
+                y.Name, System.StringComparison.OrdinalIgnoreCase));
+        }
+
         private void DrawSongText()
         {
             for (int i = 0; i < Count; i++)

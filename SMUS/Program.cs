@@ -9,17 +9,29 @@ namespace SMUS
     {
         public static bool IsRunning = true;
         public static RenderWindow Window;
+        public static bool WindowFocused = true;
 
         private static void Main(string[] args)
         {
+            //Window set up.
             Window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
             Window.SetFramerateLimit(60);
+            Window.GainedFocus += (o, e) => { WindowFocused = true; };
+            Window.LostFocus += (o, e) => { WindowFocused = false; };
+            Window.MouseButtonPressed += (o, e) =>
+            {
+                //Hack to fix window focus.
+                if (!WindowFocused)
+                    Window.Position += new Vector2i(0, 0);
+            };
 
-
+            //Config
             Config.PopulateConfig(Directory.GetCurrentDirectory() + "/Resources/Config/config.xml");
+            
             //Container
             var moduleContainer = new ModuleContainer();
 
+            //Modules
             LoadModules(moduleContainer);
 
             //Main loop
@@ -57,6 +69,7 @@ namespace SMUS
 
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);
+            songList.SortByArtist();
         }
     }
 }
