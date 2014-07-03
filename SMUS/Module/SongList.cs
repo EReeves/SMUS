@@ -109,6 +109,7 @@ namespace SMUS.Module
 
         private void ScrollText(MouseWheelEventArgs e)
         {
+            if (Mouse.IsButtonPressed(Mouse.Button.Right)) return;
             updateText = true;
             switch (e.Delta)
             {

@@ -66,7 +66,7 @@ namespace SMUS.Module
         {
             sprite = new Sprite(tex)
             {
-                Position = new Vector2f(Program.Window.Size.X - (tex.Size.X + tex.Size.X / 3),
+                Position = new Vector2f(Program.Window.Size.X - (tex.Size.X + tex.Size.X / 2),
                     (float)(Program.Window.Size.Y - tex.Size.Y) / 2)
             };
         }

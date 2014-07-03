@@ -58,6 +58,9 @@ namespace SMUS
                     case "buttons":
                         Colors.Buttons = ColorFromXElement(element);
                         break;
+                    case "volume":
+                        Colors.Volume = ColorFromXElement(element);
+                        break;
                 }
             }
         }
@@ -80,5 +83,6 @@ namespace SMUS
         public Color Border;
         public Color Text;
         public Color Buttons;
+        public Color Volume;
     }
 }

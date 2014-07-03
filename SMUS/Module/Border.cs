@@ -23,14 +23,14 @@ namespace SMUS.Module
         {
             //TODO: Draw and render this as a texture rather than manually.
 
-            sprite.Color = new Color(40, 30, 20);
+            sprite.Color = new Color(40, 30, 20,200);
             //Top shadow
             sprite.Scale = new Vector2f(Program.Window.Size.X, borderSize);
             sprite.Position = new Vector2f(0, 1);
             sprite.Draw(Program.Window, RenderStates.Default);
-            //Left shadow
+            //Right shadow
             sprite.Scale = new Vector2f(borderSize, Program.Window.Size.Y);
-            sprite.Position = new Vector2f(1, 0);
+            sprite.Position = new Vector2f(Program.Window.Size.X-borderSize-1, 0);
             sprite.Draw(Program.Window, RenderStates.Default);
 
             sprite.Color = Config.Colors.Border;

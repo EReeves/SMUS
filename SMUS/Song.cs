@@ -75,11 +75,20 @@ namespace SMUS
 
         public void PlayNext()
         {
-            int index = songList.IndexOf(this);
-            if (songList.Count < index)
-                index = -1;
+            if (!Audio.Shuffle)
+            {
+                int index = songList.IndexOf(this);
+                if (songList.Count < index)
+                    index = -1;
 
-            songList[index + 1].Play();
+                songList[index + 1].Play();
+            }
+            else
+            {
+                var rand = new Random();
+                songList[rand.Next(songList.Count)].Play();
+
+            }
         }
 
         private void SetNameFromMetaData()

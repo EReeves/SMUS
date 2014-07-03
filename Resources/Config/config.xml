@@ -39,6 +39,13 @@
             <b>255</b>
             <a>190</a>
         </buttons>
+        <volume> 
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+            <a>190</a>
+        </volume>
+
     </colours>
 
 </config>

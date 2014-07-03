@@ -10,6 +10,7 @@ namespace SMUS
         public static ISound Current;
         public static Song CurrentSong;
         public static bool IsPlaying;
+        public static bool Shuffle = false;
 
         public static bool Play(Song song)
         {

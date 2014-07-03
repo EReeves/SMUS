@@ -60,12 +60,16 @@ namespace SMUS
             var dragWindow = new DragWindow();
             var playButton = new PlayButton();
             var border = new Border();
+            var volumeControl = new VolumeControl();
+            var shuffle = new ShuffleButton();
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
             moduleContainer.AddModule(dragWindow);
             moduleContainer.AddModule(playButton);
+            moduleContainer.AddModule(volumeControl);
             moduleContainer.AddModule(border);
+            moduleContainer.AddModule(shuffle);
 
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);
