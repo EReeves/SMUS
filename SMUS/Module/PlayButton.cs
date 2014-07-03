@@ -58,7 +58,7 @@ namespace SMUS.Module
 
             //Main draw.
             sprite.Position -= new Vector2f(1, 1);
-            sprite.Color = new Color(255, 255, 255, 190);
+            sprite.Color = Config.Colors.Buttons;
             sprite.Draw(Program.Window, RenderStates.Default);
         }
 

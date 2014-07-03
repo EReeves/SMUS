@@ -15,6 +15,8 @@ namespace SMUS
             Window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
             Window.SetFramerateLimit(60);
 
+
+            Config.PopulateConfig(Directory.GetCurrentDirectory() + "/Resources/Config/config.xml");
             //Container
             var moduleContainer = new ModuleContainer();
 
@@ -24,7 +26,7 @@ namespace SMUS
             while (IsRunning)
             {
                 Window.DispatchEvents();
-                Window.Clear(new Color(70, 50, 40));
+                Window.Clear(Config.Colors.Background);
 
                 moduleContainer.Update();
 
@@ -54,7 +56,7 @@ namespace SMUS
             moduleContainer.AddModule(border);
 
             //Module specific resources
-            songList.LoadFromDirectory("C:/Users/reeve_000/Desktop/Music");
+            songList.LoadFromMultipleDirectories(Config.musicDirectories);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace SMUS
             Path = _path;
             songList = _songList;
 
+
             MetaData = MetaData.Create(_path);
             SetNameFromMetaData();
             DisplayedString = Name;
@@ -41,7 +42,7 @@ namespace SMUS
             window.Draw(this, RenderStates.Default);
             //Text
             Position -= new Vector2f(0, 1);
-            Color = Color.White;
+            Color = Config.Colors.Text;
             window.Draw(this, RenderStates.Default);
         }
 
@@ -59,7 +60,7 @@ namespace SMUS
                 return;
             }
 
-            if (Audio.Current.PlayPosition < Audio.Current.PlayLength - 10) return;
+            if (Audio.Current.PlayPosition < Audio.Current.PlayLength - 100) return;
             PlayNext();
             IsPlaying = false;
         }

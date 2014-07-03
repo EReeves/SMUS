@@ -1,0 +1,44 @@
+<!-- Config file for Smus -->
+<config>
+
+    <musicdir>
+        <!-- Format: <dir>C:/Music</dir> -->
+        <!-- You can list multiple directories -->
+        <dir>C:/Users/reeve_000/Desktop/Music</dir>
+    </musicdir>
+
+    <!-- Just change the rgba values here.-->
+    <colours>
+        <background> 
+            <r>70</r>
+            <g>40</g>
+            <b>30</b>
+            <a>255</a>
+        </background>
+        <progressbar> 
+            <r>30</r>
+            <g>20</g>
+            <b>10</b>
+            <a>255</a>
+        </progressbar>
+        <border> 
+            <r>120</r>
+            <g>90</g>
+            <b>70</b>
+            <a>255</a>
+        </border>
+        <text> 
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+            <a>255</a>
+        </text>
+        <buttons> 
+            <r>255</r>
+            <g>255</g>
+            <b>255</b>
+            <a>190</a>
+        </buttons>
+    </colours>
+
+</config>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -43,8 +44,16 @@ namespace SMUS.Module
                 .ToArray();
             foreach (string s in fileList)
             {
-                Add(new Song(this, s, Font));
+                try
+                {
+                    Add(new Song(this, s, Font));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Corrupted File: " + Path.GetFileName(s) + " - skipped.");
+                }
             }
+         
         }
 
         public void LoadFromMultipleDirectories(IEnumerable<string> paths)

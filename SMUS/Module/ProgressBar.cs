@@ -14,7 +14,7 @@ namespace SMUS.Module
             sprite = new Sprite(tex)
             {
                 Position = new Vector2f(0, 0),
-                Color = new Color(30, 20, 10)
+                Color = Config.Colors.ProgressBar
             };
         }
 
