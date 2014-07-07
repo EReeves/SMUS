@@ -25,6 +25,9 @@ namespace SMUS
                     Window.Position += new Vector2i(0, 0);
             };
 
+            //Initialize Audio
+            Audio.StartEngine();
+
             //Config
             Config.PopulateConfig(Directory.GetCurrentDirectory() + "/Resources/Config/config.xml");
             
@@ -39,6 +42,10 @@ namespace SMUS
             {
                 Window.DispatchEvents();
                 Window.Clear(Config.Colors.Background);
+
+                if (Keyboard.IsKeyPressed(Keyboard.Key.LAlt) || Keyboard.IsKeyPressed(Keyboard.Key.RAlt) &&
+                    Keyboard.IsKeyPressed(Keyboard.Key.F4))
+                    IsRunning = false;
 
                 moduleContainer.Update();
 
@@ -62,6 +69,7 @@ namespace SMUS
             var border = new Border();
             var volumeControl = new VolumeControl();
             var shuffle = new ShuffleButton();
+            var repeat = new RepeatButton();
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
@@ -70,6 +78,7 @@ namespace SMUS
             moduleContainer.AddModule(volumeControl);
             moduleContainer.AddModule(border);
             moduleContainer.AddModule(shuffle);
+            moduleContainer.AddModule(repeat);
 
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);

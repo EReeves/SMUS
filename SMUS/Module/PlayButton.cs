@@ -38,7 +38,7 @@ namespace SMUS.Module
             if (Audio.IsPlaying)
                 Audio.Pause();
             else
-                Audio.Play();
+                Audio.Resume();
         }
 
         public void SpriteCheck()

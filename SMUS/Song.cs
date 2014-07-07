@@ -49,21 +49,12 @@ namespace SMUS
 
         public void Update()
         {
-            if (!IsPlaying)
+            if (IsPlaying && FinishedPlaying())
             {
                 Style = Styles.Regular;
-                return;
-            }
-
-            if (Audio.CurrentSong != this)
-            {
+                Audio.PlayNext(songList, this);
                 IsPlaying = false;
-                return;
             }
-
-            if (Audio.Current.PlayPosition < Audio.Current.PlayLength - 100) return;
-            PlayNext();
-            IsPlaying = false;
         }
 
         public void Play()
@@ -73,22 +64,12 @@ namespace SMUS
             Audio.Play(this);
         }
 
-        public void PlayNext()
+        public bool FinishedPlaying()
         {
-            if (!Audio.Shuffle)
-            {
-                int index = songList.IndexOf(this);
-                if (songList.Count < index)
-                    index = -1;
-
-                songList[index + 1].Play();
-            }
-            else
-            {
-                var rand = new Random();
-                songList[rand.Next(songList.Count)].Play();
-
-            }
+            if (Audio.Current != null)
+                return Audio.Current.PlayPosition > Audio.Current.PlayLength - 100;
+            else 
+                return false;
         }
 
         private void SetNameFromMetaData()
@@ -107,15 +88,15 @@ namespace SMUS
             else if (!title && artist)
             {
                 Name = MetaData.Tag.FirstPerformer + " - " +
-                       Regex.Replace(System.IO.Path.GetFileNameWithoutExtension(Path), @"[\d-]", "",
-                           RegexOptions.Multiline)
+                        // ReSharper disable once AssignNullToNotNullAttribute
+                       Regex.Replace(input: System.IO.Path.GetFileNameWithoutExtension(Path), pattern: @"[\d-]", replacement: "", options: RegexOptions.Multiline)
                            .TrimStart();
             }
             else
             {
                 Name = "Unknown Artist - " +              
-                    Regex.Replace(System.IO.Path.GetFileNameWithoutExtension(Path), @"[\d-]", "",
-                           RegexOptions.Multiline)
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    Regex.Replace(input: System.IO.Path.GetFileNameWithoutExtension(Path), pattern: @"[\d-]", replacement: "", options: RegexOptions.Multiline)
                            .TrimStart();
             }
 

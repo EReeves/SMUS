@@ -38,7 +38,7 @@
     <OutputPath>bin\x86\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>SMUS.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="irrKlang.NET4">
@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +77,7 @@
     <Compile Include="Module\Module.cs" />
     <Compile Include="Module\PlayButton.cs" />
     <Compile Include="Module\ProgressBar.cs" />
+    <Compile Include="Module\RepeatButton.cs" />
     <Compile Include="Module\ShuffleButton.cs" />
     <Compile Include="Module\VolumeControl.cs" />
     <Compile Include="Program.cs" />

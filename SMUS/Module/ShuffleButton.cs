@@ -21,13 +21,17 @@ namespace SMUS.Module
             
             button.OnPress += () =>
             {
-                Audio.Shuffle = !Audio.Shuffle;
-                button.sprite.Color = Audio.Shuffle ? Config.Colors.Buttons : new Color(255,255,255,100);
+                bool shuffle = Audio.NextState == Audio.State.Shuffle;
+                Audio.NextState = !shuffle ? Audio.State.Shuffle : Audio.State.Next;
+                button.sprite.Color = !shuffle ? Config.Colors.Buttons : new Color(255,255,255,100);
             };
         }
 
         public override void Update()
         {
+            if(Audio.NextState != Audio.State.Shuffle)
+                button.sprite.Color = new Color(255, 255, 255, 100);
+
             button.Draw(true);
         }
     }
