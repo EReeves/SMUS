@@ -16,7 +16,7 @@ namespace SMUS
         {
             //Window set up.
             Window = new RenderWindow(new VideoMode(550, 104), "Smus", Styles.None);
-            Window.SetFramerateLimit(60);
+            Window.SetFramerateLimit(61);
             Window.GainedFocus += (o, e) => { WindowFocused = true; };
             Window.LostFocus += (o, e) => { WindowFocused = false; };
             Window.MouseButtonPressed += (o, e) =>
@@ -43,7 +43,7 @@ namespace SMUS
             {
                 Window.DispatchEvents();
                 if (!WindowFocused)
-                    Thread.Sleep(100); //Doesn't need to run as smooth.
+                    Thread.Sleep(200); //Doesn't need to run as smooth.
         
                 Window.Clear(Config.Colors.Background);
 
