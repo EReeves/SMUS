@@ -71,10 +71,7 @@ namespace SMUS
 
         public bool FinishedPlaying()
         {
-            if (Audio.Current != null)
-                return Audio.Current.PlayPosition > Audio.Current.PlayLength - 130;
-            else 
-                return false;
+            return !Audio.Engine.IsCurrentlyPlaying(Path);
         }
 
         private void SetNameFromMetaData(MetaData md)
