@@ -14,6 +14,8 @@ Usage
 
 Click on things to click on things.
 
+You can scroll through the music list.
+
 Hold right click and drag to move the window.
 
 Hold right click and scroll to change the volume.
