@@ -43,7 +43,7 @@ namespace SMUS
                 Window.DispatchEvents();
                 Window.Clear(Config.Colors.Background);
 
-                if (Keyboard.IsKeyPressed(Keyboard.Key.LAlt) || Keyboard.IsKeyPressed(Keyboard.Key.RAlt) &&
+                if ((Keyboard.IsKeyPressed(Keyboard.Key.LAlt) || Keyboard.IsKeyPressed(Keyboard.Key.RAlt)) &&
                     Keyboard.IsKeyPressed(Keyboard.Key.F4))
                     IsRunning = false;
 
@@ -51,6 +51,8 @@ namespace SMUS
 
                 Window.Display();
             }
+
+            Audio.Engine.Dispose();
         }
 
         private static void LoadModules(ModuleContainer moduleContainer)
