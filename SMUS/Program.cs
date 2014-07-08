@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using SFML.Graphics;
 using SFML.Window;
 using SMUS.Module;
@@ -24,7 +25,7 @@ namespace SMUS
                 if (!WindowFocused)
                     Window.Position += new Vector2i(0, 0);
             };
-
+            
             //Initialize Audio
             Audio.StartEngine();
 
@@ -41,12 +42,16 @@ namespace SMUS
             while (IsRunning)
             {
                 Window.DispatchEvents();
+                if (!WindowFocused)
+                    Thread.Sleep(100); //Doesn't need to run as smooth.
+        
                 Window.Clear(Config.Colors.Background);
 
                 if ((Keyboard.IsKeyPressed(Keyboard.Key.LAlt) || Keyboard.IsKeyPressed(Keyboard.Key.RAlt)) &&
                     Keyboard.IsKeyPressed(Keyboard.Key.F4))
                     IsRunning = false;
 
+               
                 moduleContainer.Update();
 
                 Window.Display();

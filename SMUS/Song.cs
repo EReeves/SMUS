@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using SFML.Graphics;
 using SFML.Window;
 using SMUS.Module;
+using TagLib;
 using MetaData = TagLib.File;
 
 namespace SMUS
@@ -15,7 +16,6 @@ namespace SMUS
         public bool IsPlaying = false;
         public string Name { get; private set; }
         public string Path { get; private set; }
-        public MetaData MetaData { get; private set; }
 
         public Song(SongList _songList, string _path, Font _font)
             : base("SongText", _font)
@@ -24,8 +24,8 @@ namespace SMUS
             songList = _songList;
 
 
-            MetaData = MetaData.Create(_path);
-            SetNameFromMetaData();
+            MetaData md = MetaData.Create(_path);
+            SetNameFromMetaData(md);
             DisplayedString = Name;
 
             //formatting
@@ -33,10 +33,15 @@ namespace SMUS
             Color = Color.Black;
 
             Program.Window.MouseButtonPressed += (o, e) => CollisionCheck(e);
+
+            md.Dispose();
+
         }
 
         public void Draw(RenderWindow window)
         {
+            if(!IsVisible()) return;
+            
             //Shadow
             Position += new Vector2f(0, 1);
             Color = Color.Black;
@@ -72,22 +77,22 @@ namespace SMUS
                 return false;
         }
 
-        private void SetNameFromMetaData()
+        private void SetNameFromMetaData(MetaData md)
         {
-            bool title = !String.IsNullOrEmpty(MetaData.Tag.Title);
-            bool artist = !String.IsNullOrEmpty(MetaData.Tag.FirstPerformer);
+            bool title = !String.IsNullOrEmpty(md.Tag.Title);
+            bool artist = !String.IsNullOrEmpty(md.Tag.FirstPerformer);
 
             if (title && artist)
             {
-                Name = MetaData.Tag.FirstPerformer + " - " + MetaData.Tag.Title;
+                Name = md.Tag.FirstPerformer + " - " + md.Tag.Title;
             }
-            else if (!String.IsNullOrEmpty(MetaData.Tag.FirstAlbumArtist) && title)
+            else if (!String.IsNullOrEmpty(md.Tag.FirstAlbumArtist) && title)
             {
-                Name = MetaData.Tag.FirstAlbumArtist + " - " + MetaData.Tag.Title;
+                Name = md.Tag.FirstAlbumArtist + " - " + md.Tag.Title;
             }
             else if (!title && artist)
             {
-                Name = MetaData.Tag.FirstPerformer + " - " +
+                Name = md.Tag.FirstPerformer + " - " +
                         // ReSharper disable once AssignNullToNotNullAttribute
                        Regex.Replace(input: System.IO.Path.GetFileNameWithoutExtension(Path), pattern: @"[\d-]", replacement: "", options: RegexOptions.Multiline)
                            .TrimStart();
@@ -115,6 +120,11 @@ namespace SMUS
             if (pos.X >= Position.X && pos.Y >= Position.Y &&
                 pos.X - Position.X <= GetLocalBounds().Width && pos.Y - Position.Y <= GetLocalBounds().Height)
                 Play();
+        }
+
+        private bool IsVisible()
+        {
+            return Position.Y > -GetLocalBounds().Height && Position.Y < Program.Window.Size.Y;
         }
     }
 }
