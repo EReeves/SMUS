@@ -16,21 +16,21 @@ namespace SMUS.Module
         public ShuffleButton()
         {
             button = new Button(Directory.GetCurrentDirectory() + "/Resources/Textures/shuffle.png");
-            button.sprite.Position = new Vector2f(Program.Window.Size.X - Program.Window.Size.X/4 - 10, Program.Window.Size.Y - button.sprite.Texture.Size.Y*1.5f);
-            button.sprite.Color = new Color(255,255,255,100);
+            button.sprite.Position = new Vector2f(Program.Window.Size.X - Program.Window.Size.X / 4, Program.Window.Size.Y - (button.sprite.Texture.Size.Y + button.sprite.Texture.Size.Y / 2));
+            button.sprite.Color = Config.Colors.ButtonsFaded;
             
             button.OnPress += () =>
             {
                 bool shuffle = Audio.NextState == Audio.State.Shuffle;
                 Audio.NextState = !shuffle ? Audio.State.Shuffle : Audio.State.Next;
-                button.sprite.Color = !shuffle ? Config.Colors.Buttons : new Color(255,255,255,100);
+                button.sprite.Color = !shuffle ? Config.Colors.Buttons : Config.Colors.ButtonsFaded;
             };
         }
 
         public override void Update()
         {
             if(Audio.NextState != Audio.State.Shuffle)
-                button.sprite.Color = new Color(255, 255, 255, 100);
+                button.sprite.Color = Config.Colors.ButtonsFaded;
 
             button.Draw(true);
         }

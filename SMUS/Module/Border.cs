@@ -23,7 +23,7 @@ namespace SMUS.Module
         {
             //TODO: Draw and render this as a texture rather than manually.
 
-            sprite.Color = new Color(40, 30, 20,200);
+            sprite.Color = Config.Colors.Shadow;
             //Top shadow
             sprite.Scale = new Vector2f(Program.Window.Size.X, borderSize);
             sprite.Position = new Vector2f(0, 1);

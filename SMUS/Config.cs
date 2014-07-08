@@ -58,8 +58,14 @@ namespace SMUS
                     case "buttons":
                         Colors.Buttons = ColorFromXElement(element);
                         break;
+                    case "buttonsfaded":
+                        Colors.ButtonsFaded = ColorFromXElement(element);
+                        break;
                     case "volume":
                         Colors.Volume = ColorFromXElement(element);
+                        break;
+                    case "shadow":
+                        Colors.Shadow = ColorFromXElement(element);
                         break;
                 }
             }
@@ -83,6 +89,8 @@ namespace SMUS
         public Color Border;
         public Color Text;
         public Color Buttons;
+        public Color ButtonsFaded;
         public Color Volume;
+        public Color Shadow;
     }
 }

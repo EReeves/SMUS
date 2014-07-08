@@ -16,22 +16,21 @@ namespace SMUS.Module
         public RepeatButton()
         {
             button = new Button(Directory.GetCurrentDirectory() + "/Resources/Textures/repeat.png");
-            button.sprite.Position = new Vector2f(Program.Window.Size.X - Program.Window.Size.X / 4 - 10, Program.Window.Size.Y - 5 - button.sprite.Texture.Size.Y * 3f);
-            button.sprite.Color = new Color(255, 255, 255, 100);
+            button.sprite.Position = new Vector2f(Program.Window.Size.X - Program.Window.Size.X / 4, button.sprite.Texture.Size.Y/2);
+            button.sprite.Color = Config.Colors.ButtonsFaded;
 
             button.OnPress += () =>
             {
                 bool repeat = Audio.NextState == Audio.State.Repeat;
                 Audio.NextState = !repeat ? Audio.State.Repeat : Audio.State.Next;
-                button.sprite.Color = !repeat ? Config.Colors.Buttons : new Color(255, 255, 255, 100);
+                button.sprite.Color = !repeat ? Config.Colors.Buttons : Config.Colors.ButtonsFaded;
             };
         }
 
         public override void Update()
         {
             if (Audio.NextState != Audio.State.Repeat)
-                button.sprite.Color = new Color(255, 255, 255, 100);
-
+                button.sprite.Color = Config.Colors.ButtonsFaded;
             button.Draw(true);
         }
     }

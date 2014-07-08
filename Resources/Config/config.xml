@@ -10,9 +10,9 @@
     <!-- Just change the rgba values here.-->
     <colours>
         <background> 
-            <r>70</r>
-            <g>40</g>
-            <b>30</b>
+            <r>60</r>
+            <g>30</g>
+            <b>20</b>
             <a>255</a>
         </background>
         <progressbar> 
@@ -22,27 +22,39 @@
             <a>255</a>
         </progressbar>
         <border> 
-            <r>120</r>
-            <g>90</g>
-            <b>70</b>
+            <r>160</r>
+            <g>120</g>
+            <b>80</b>
             <a>255</a>
         </border>
         <text> 
             <r>255</r>
-            <g>255</g>
-            <b>255</b>
+            <g>240</g>
+            <b>220</b>
             <a>255</a>
         </text>
         <buttons> 
             <r>255</r>
-            <g>255</g>
-            <b>255</b>
+            <g>250</g>
+            <b>245</b>
             <a>190</a>
         </buttons>
+        <buttonsfaded> 
+            <r>255</r>
+            <g>240</g>
+            <b>220</b>
+            <a>100</a>
+        </buttonsfaded>
+        <shadow>
+            <r>20</r>
+            <g>20</g>
+            <b>20</b>
+            <a>200</a>
+        </shadow>
         <volume> 
             <r>255</r>
-            <g>255</g>
-            <b>255</b>
+            <g>240</g>
+            <b>220</b>
             <a>190</a>
         </volume>
 

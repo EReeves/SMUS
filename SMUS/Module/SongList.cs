@@ -39,9 +39,9 @@ namespace SMUS.Module
         public void LoadFromDirectory(string path)
         {
             var regx = new Regex(@".*\.(wav|ogg|mp3|flac|mod|it|s3d|xm)");
-            string[] fileList = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
-                .Where(s => regx.IsMatch(s))
-                .ToArray();
+            var fileList = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).AsParallel()
+                .Where(s => regx.IsMatch(s));
+
             foreach (string s in fileList)
             {
                 try

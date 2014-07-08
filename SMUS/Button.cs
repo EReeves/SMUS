@@ -50,7 +50,7 @@ namespace SMUS.Module
             {
                 //Shadow.
                 Color def = sprite.Color;
-                sprite.Color = new Color(20,20,20,200);
+                sprite.Color = Config.Colors.Shadow;
                 sprite.Position += new Vector2f(0,1);
                 sprite.Draw(Program.Window, RenderStates.Default);
 

@@ -53,7 +53,7 @@ namespace SMUS.Module
 
             //Drop shadow.
             sprite.Position += new Vector2f(1, 1);
-            sprite.Color = new Color(20, 20, 20, 100);
+            sprite.Color = Config.Colors.Shadow;
             sprite.Draw(Program.Window, RenderStates.Default);
 
             //Main draw.
@@ -66,7 +66,7 @@ namespace SMUS.Module
         {
             sprite = new Sprite(tex)
             {
-                Position = new Vector2f(Program.Window.Size.X - (tex.Size.X + tex.Size.X / 2),
+                Position = new Vector2f(Program.Window.Size.X - (tex.Size.X + tex.Size.X / 3),
                     (float)(Program.Window.Size.Y - tex.Size.Y) / 2)
             };
         }
