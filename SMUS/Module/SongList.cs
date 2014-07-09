@@ -27,6 +27,8 @@ namespace SMUS.Module
         {
             PixelSnap();
 
+            if (!Program.WindowFocused)
+                ScrollToCurrentSong();
             //Draw
             if (Count > 0)
                 DrawSongText();
@@ -66,6 +68,27 @@ namespace SMUS.Module
         {
             this.Sort((x, y) => System.String.Compare(x.Name,
                 y.Name, System.StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void ScrollToCurrentSong()
+        {
+            if(Audio.CurrentSong == null) return;
+
+            if (Audio.CurrentSong.Position.Y < 0)
+            {
+                updateText = true;
+
+                float amount = (Math.Abs(Audio.CurrentSong.Position.Y) - 3f + charHeight) / charHeight;
+                yScroll += charHeight * (int)amount;
+            }
+            else if (Audio.CurrentSong.Position.Y > 6)
+            {
+                updateText = true;
+
+                float amount = (Math.Abs(Audio.CurrentSong.Position.Y) - 3f + charHeight) / charHeight;
+                yScroll -= charHeight * (int)amount;
+            }
+
         }
 
         private void DrawSongText()

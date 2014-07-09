@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
-using SFML.Tools;
+﻿using SFML.Tools;
 using SFML.Window;
 
 namespace SMUS.Module
@@ -32,8 +25,9 @@ namespace SMUS.Module
 
         public override void Update()
         {
-            if (Audio.NextState != Audio.State.Repeat)
-                button.sprite.Colour = Config.Colors.ButtonsFaded;
+            if (Audio.NextState == Audio.State.Repeat) return;
+            button.sprite.Colour = Config.Colors.ButtonsFaded;
+            Program.SpriteBatch.CalculateVertices();
         }
     }
 }
