@@ -35,13 +35,6 @@ namespace SMUS.Module
         {
             float percent = ((float)Math.Exp(Audio.Engine.SoundVolume) - 1)/((float)Math.E - 1);
             sprite.Position = new Vector2f(sprite.Position.X,-1 + Program.Window.Size.Y - Program.Window.Size.Y * percent);
-
-            sprite.Color = Config.Colors.Shadow;
-            sprite.Position -= new Vector2f(1,0);
-            sprite.Draw(Program.Window, RenderStates.Default);
-
-            sprite.Color = Config.Colors.Volume;
-            sprite.Position += new Vector2f(1, 0);
             sprite.Draw(Program.Window, RenderStates.Default);
 
         }

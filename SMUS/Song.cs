@@ -23,6 +23,7 @@ namespace SMUS
             Path = _path;
             songList = _songList;
 
+            
 
             MetaData md = MetaData.Create(_path);
             SetNameFromMetaData(md);

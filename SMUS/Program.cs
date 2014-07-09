@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using SFML.Graphics;
 using SFML.Window;
@@ -77,7 +78,7 @@ namespace SMUS
         {
             //Global resource/s.
             var baseFont = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
-
+            baseFont.GetTexture(14).Smooth = false;
             //Modules
             /*  Modules shouldn't depend on other modules unless absolutely neccessary.
              *  Draw order is determined by the order they are added to the container.

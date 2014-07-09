@@ -46,7 +46,7 @@ namespace SMUS
                 song.IsPlaying = true;
                 song.Style = Text.Styles.Bold;
             }
-            catch (Exception e)
+            catch 
             {
                 return false;
             }

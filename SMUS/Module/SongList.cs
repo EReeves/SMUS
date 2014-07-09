@@ -48,7 +48,7 @@ namespace SMUS.Module
                 {
                     Add(new Song(this, s, Font));
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("Corrupted File: " + Path.GetFileName(s) + " - skipped.");
                 }
