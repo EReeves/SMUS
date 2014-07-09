@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.Tools;
 using SMUS.Module;
 
 namespace SMUS
@@ -10,6 +12,8 @@ namespace SMUS
     {
         public static bool IsRunning = true;
         public static RenderWindow Window;
+        public static SpriteBatch SpriteBatch;
+        public static AtlasData AtlasData;        
         public static bool WindowFocused = true;
 
         private static void Main(string[] args)
@@ -32,11 +36,19 @@ namespace SMUS
             //Config
             Config.PopulateConfig(Directory.GetCurrentDirectory() + "/Resources/Config/config.xml");
             
+            //SpriteBatch/Atlas
+            AtlasData = new AtlasData(Directory.GetCurrentDirectory() + "/Resources/Textures/Atlas");
+            SpriteBatch = new SpriteBatch(AtlasData.AtlasTexture);
+
             //Container
             var moduleContainer = new ModuleContainer();
 
             //Modules
             LoadModules(moduleContainer);
+
+            //Update SpriteBatch
+            SpriteBatch.SortZ();
+            SpriteBatch.CalculateVertices();
 
             //Main loop
             while (IsRunning)
@@ -51,8 +63,9 @@ namespace SMUS
                     Keyboard.IsKeyPressed(Keyboard.Key.F4))
                     IsRunning = false;
 
-               
                 moduleContainer.Update();
+
+                SpriteBatch.Render(Window);
 
                 Window.Display();
             }

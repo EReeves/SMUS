@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtlasData.cs" />
     <Compile Include="Audio.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Module\Border.cs" />
@@ -88,6 +89,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFML.Tools\SFML.Tools.csproj">
+      <Project>{5d922786-736b-455e-b1ce-b842ec549e3f}</Project>
+      <Name>SFML.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

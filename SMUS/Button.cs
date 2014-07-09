@@ -4,18 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
+using SFML.Tools;
 using SFML.Window;
 
 namespace SMUS.Module
 {
-    class Button
+    internal class Button
     {
-        public readonly Sprite sprite;
+        public readonly BatchedSprite sprite;
+        public readonly BatchedSprite shadowSprite;
         public event Action OnPress;
 
-        public Button(string path)
+        public Button(BatchedSprite spr)
         {
-            sprite = new Sprite(new Texture(path));
+            sprite = spr;
+            shadowSprite = new BatchedSprite(spr.Position, spr.AtlasPosition, spr.ZOrder - 1);
+
+            spr.Colour = Config.Colors.Buttons;
+            shadowSprite.Colour = Config.Colors.Shadow;
+            shadowSprite.Position += new Vector2f(0, 1);
+
+            Program.SpriteBatch.Add(spr);
+            Program.SpriteBatch.Add(shadowSprite);
+
             Program.Window.MouseButtonPressed += Window_MouseButtonPressed;
         }
 
@@ -25,8 +36,8 @@ namespace SMUS.Module
 
             if (MouseInBounds() && Program.WindowFocused)
             {
-                if(OnPress != null)
-                OnPress.Invoke();
+                if (OnPress != null)
+                    OnPress.Invoke();
             }
         }
 
@@ -35,30 +46,8 @@ namespace SMUS.Module
             Vector2i e = Mouse.GetPosition(Program.Window);
 
             return e.X >= sprite.Position.X && e.Y >= sprite.Position.Y &&
-                   e.X <= sprite.Position.X + sprite.Texture.Size.X &&
-                   e.Y <= sprite.Position.Y + sprite.Texture.Size.Y;
-        }
-
-        public void Draw(bool shadow)
-        {
-            if (!shadow)
-            {
-                sprite.Draw(Program.Window, RenderStates.Default);
-                return;
-            }
-            else
-            {
-                //Shadow.
-                Color def = sprite.Color;
-                sprite.Color = Config.Colors.Shadow;
-                sprite.Position += new Vector2f(0,1);
-                sprite.Draw(Program.Window, RenderStates.Default);
-
-                //Sprite
-                sprite.Color = def;
-                sprite.Position -= new Vector2f(0, 1);
-                sprite.Draw(Program.Window, RenderStates.Default);
-            }
+                   e.X <= sprite.Position.X + sprite.AtlasPosition.Width &&
+                   e.Y <= sprite.Position.Y + sprite.AtlasPosition.Height;
         }
     }
 }

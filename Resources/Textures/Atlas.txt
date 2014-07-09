@@ -1,0 +1,5 @@
+blank = 0 104 1 1
+pause = 0 0 70 70
+play = 71 0 70 70
+repeat = 0 71 32 32
+shuffle = 33 71 32 32
