@@ -104,6 +104,16 @@ namespace SMUS
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);
             songList.SortByArtist();
+
+            //Remove duplicates.
+            var duplicates = songList.GroupBy(x => x.Name).Where(x=>x.Count() > 1);
+            foreach (var duplicate in duplicates)
+            {
+                foreach (Song song in duplicate.Take(duplicate.Count()-1))
+                {
+                    songList.Remove(song);
+                }
+            }
         }
     }
 }
