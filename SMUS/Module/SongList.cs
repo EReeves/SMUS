@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Timers;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -73,7 +73,7 @@ namespace SMUS.Module
                 y.Name, System.StringComparison.OrdinalIgnoreCase));
         }
 
-        private void ScrollToCurrentSong()
+        public void ScrollToCurrentSong()
         {
             if(Audio.CurrentSong == null) return;
 

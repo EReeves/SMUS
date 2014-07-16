@@ -36,7 +36,6 @@ namespace SMUS.Module
             float percent = ((float)Math.Exp(Audio.Engine.SoundVolume) - 1)/((float)Math.E - 1);
             sprite.Position = new Vector2f(sprite.Position.X,-1 + Program.Window.Size.Y - Program.Window.Size.Y * percent);
             sprite.Draw(Program.Window, RenderStates.Default);
-
         }
 
         private void Window_MouseWheelMoved(object sender, MouseWheelEventArgs e)

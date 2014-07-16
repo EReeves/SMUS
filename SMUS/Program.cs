@@ -66,12 +66,11 @@ namespace SMUS
 
                 moduleContainer.Update();
 
-                SpriteBatch.Render(Window);
-
                 Window.Display();
             }
 
             Audio.Engine.Dispose();
+            Window.Close();
         }
 
         private static void LoadModules(ModuleContainer moduleContainer)
@@ -91,15 +90,19 @@ namespace SMUS
             var volumeControl = new VolumeControl();
             var shuffle = new ShuffleButton();
             var repeat = new RepeatButton();
+            var spriteBatch = new SpriteBatchMod(SpriteBatch);
+            var search = new TextSearch(songList, baseFont);
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
             moduleContainer.AddModule(dragWindow);
             moduleContainer.AddModule(playButton);
             moduleContainer.AddModule(volumeControl);
-            moduleContainer.AddModule(border);
             moduleContainer.AddModule(shuffle);
             moduleContainer.AddModule(repeat);
+            moduleContainer.AddModule(spriteBatch);
+            moduleContainer.AddModule(border);
+            moduleContainer.AddModule(search);
 
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);

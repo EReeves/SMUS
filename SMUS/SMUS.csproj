@@ -80,6 +80,8 @@
     <Compile Include="Module\ProgressBar.cs" />
     <Compile Include="Module\RepeatButton.cs" />
     <Compile Include="Module\ShuffleButton.cs" />
+    <Compile Include="Module\SpriteBatchMod.cs" />
+    <Compile Include="Module\TextSearch.cs" />
     <Compile Include="Module\VolumeControl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
