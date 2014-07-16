@@ -23,7 +23,7 @@ namespace SMUS.Module
             DrawBar();
         }
 
-        private void DrawBar()
+        public void DrawBar()
         {
             //Calculate and draw progress bar.
             if (Audio.Current == null || Audio.Current.PlayPosition == 0) return;

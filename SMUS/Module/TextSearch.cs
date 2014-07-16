@@ -19,6 +19,7 @@ namespace SMUS.Module
         private readonly Timer inputTimer;
         private readonly Text text;
         private readonly Sprite backgroundSprite;
+        private readonly int charHeight;
 
         public TextSearch(SongList sl, Font font)
         {
@@ -36,19 +37,28 @@ namespace SMUS.Module
                 text.DisplayedString = "";
             };
 
-            text.CharacterSize = 28;
-            text.Style = Text.Styles.Bold;
+            //Formatting.
+            text.CharacterSize = 26;
+            text.Font.GetTexture(26).Smooth = false;
 
             var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
-            backgroundSprite = new Sprite(tex);
-            backgroundSprite.Color = new Color(0,0,0, 180);
-            backgroundSprite.Scale = new Vector2f(Program.Window.Size.X,Program.Window.Size.Y);
+            backgroundSprite = new Sprite(tex) {Color = new Color(0, 0, 0, 200)};
+
+            text.DisplayedString = "a";
+            charHeight = (int)text.GetLocalBounds().Height;
+            text.DisplayedString = "";
+            
         }
 
         public override void Update()
         {
-            if(!String.IsNullOrEmpty(text.DisplayedString))
-                backgroundSprite.Draw(Program.Window,RenderStates.Default);
+            if (String.IsNullOrEmpty(text.DisplayedString)) return;
+            
+                var y = charHeight*2.2f;
+                backgroundSprite.Position = new Vector2f(0, Program.Window.Size.Y - y);
+                backgroundSprite.Scale = new Vector2f(Program.Window.Size.X, y);
+                backgroundSprite.Draw(Program.Window, RenderStates.Default);
+            
 
             var prev = text.Color;
 
@@ -58,7 +68,7 @@ namespace SMUS.Module
 
             text.Color = prev;
             text.Position -= new Vector2f(1,1);
-            text.Position = new Vector2f((int)(Program.Window.Size.X / 2 - text.GetLocalBounds().Width/2), Program.Window.Size.Y - text.GetLocalBounds().Height*2);
+            text.Position = new Vector2f((int)(Program.Window.Size.X / 2f - text.GetLocalBounds().Width/2), Program.Window.Size.Y - charHeight*2.4f);
             text.Draw(Program.Window,RenderStates.Default);
         }
 
@@ -70,18 +80,29 @@ namespace SMUS.Module
                 return;
             }
 
-
             inputTimer.Stop();
             inputTimer.Start();
-            inputText += e.Unicode.ToUpperInvariant();
-            text.DisplayedString = inputText.ToLower();
+            inputText += e.Unicode.ToLower();
+            text.DisplayedString = inputText;
 
             LetterScroll();
         }
 
         private void LetterScroll()
         {
-            var song = songList.Find(s => s.Name.ToUpperInvariant().StartsWith(inputText));
+            if (inputText == "") return;
+
+            Song song = null;
+            Parallel.ForEach(songList, (s,p) =>
+            {
+                //Pretty intensive, this makes it a bit faster although not as accurate.
+                var n = s.Name.ToLower();
+                if (n[0] != inputText[0]) return;
+                if (!n.StartsWith(inputText)) return;
+                song = s;
+                p.Break();
+            });
+
             if (song == null)
             {
                 text.Color = new Color(255,100,100);

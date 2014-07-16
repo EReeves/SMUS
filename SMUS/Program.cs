@@ -92,6 +92,7 @@ namespace SMUS
             var repeat = new RepeatButton();
             var spriteBatch = new SpriteBatchMod(SpriteBatch);
             var search = new TextSearch(songList, baseFont);
+            var hotkeys = new HotKeys(pBar, songList);
 
             moduleContainer.AddModule(pBar);
             moduleContainer.AddModule(songList);
@@ -103,6 +104,7 @@ namespace SMUS
             moduleContainer.AddModule(spriteBatch);
             moduleContainer.AddModule(border);
             moduleContainer.AddModule(search);
+            moduleContainer.AddModule(hotkeys);
 
             //Module specific resources
             songList.LoadFromMultipleDirectories(Config.musicDirectories);

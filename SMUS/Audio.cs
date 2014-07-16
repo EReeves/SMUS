@@ -71,10 +71,36 @@ namespace SMUS
                 case State.Next:
                     int index = sl.IndexOf(current);
 
-                    if (sl.Count < index)
+                    if (sl.Count-1 == index)
                         index = -1;
 
                     Play(sl[index + 1]);
+                    break;
+
+                case State.Shuffle:
+                    var rand = new Random();
+                    Play(sl[rand.Next(sl.Count)]);
+                    break;
+
+                case State.Repeat:
+                    Play(current);
+                    break;
+            }
+        }
+
+        public static void PlayPrev(SongList sl, Song current)
+        {
+            if (Current == null || sl == null) return;
+
+            switch (NextState)
+            {
+                case State.Next:
+                    int index = sl.IndexOf(current);
+
+                    if (index == 0)
+                        index = sl.Count;
+
+                    Play(sl[index - 1]);
                     break;
 
                 case State.Shuffle:

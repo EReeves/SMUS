@@ -75,6 +75,7 @@
     <Compile Include="Module\Border.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Module\DragWindow.cs" />
+    <Compile Include="Module\HotKeys.cs" />
     <Compile Include="Module\Module.cs" />
     <Compile Include="Module\PlayButton.cs" />
     <Compile Include="Module\ProgressBar.cs" />
