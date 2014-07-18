@@ -115,6 +115,7 @@ namespace SMUS
             if (e.Button != Mouse.Button.Left) return;
             if (!(Position.Y >= 0) || !(Position.Y <= Program.Window.Size.Y)) return;
             Vector2i pos = Mouse.GetPosition(Program.Window);
+            if (pos.X >= Program.Window.Size.X - Program.Window.Size.X/4) return;
             if (pos.X >= Position.X && pos.Y >= Position.Y &&
                 pos.X - Position.X <= GetLocalBounds().Width && pos.Y - Position.Y <= GetLocalBounds().Height)
                 Play();

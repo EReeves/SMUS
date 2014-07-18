@@ -26,13 +26,15 @@ namespace SMUS.Module
 
         public void Update()
         {
+            if (Count < 1) return;
+
             PixelSnap();
 
             if (!Program.WindowFocused)
                 ScrollToCurrentSong();
             //Draw
-            if (Count > 0)
-                DrawSongText();
+            
+            DrawSongText();
 
             //Update all songs
             foreach (Song song in this)
