@@ -1,4 +1,4 @@
-﻿using SFML.Graphics;
+using SFML.Graphics;
 using SFML.Window;
 
 namespace SMUS.Module
@@ -8,6 +8,7 @@ namespace SMUS.Module
     {
         private bool drag;
         private Vector2i mousePos;
+        private Vector2i relPos;
 
         public override void Update()
         {
@@ -20,8 +21,9 @@ namespace SMUS.Module
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Right))
                 {
-                    Program.Window.Position -= mousePos - Mouse.GetPosition();
-                    mousePos = Mouse.GetPosition();
+//                    Program.Window.Position -= mousePos - Mouse.GetPosition();
+//                    mousePos = Mouse.GetPosition();
+                    Program.Window.Position = Mouse.GetPosition() - relPos;
                 }
                 else
                 {
@@ -36,6 +38,7 @@ namespace SMUS.Module
 
                 drag = true;
                 mousePos = Mouse.GetPosition();
+                relPos = pos;
             }
         }
     }
