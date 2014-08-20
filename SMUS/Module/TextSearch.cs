@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using SFML.Graphics;
 using SFML.Window;
 using System.Timers;
@@ -33,7 +28,7 @@ namespace SMUS.Module
             {
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Back)) return;
                 inputText = "";
-                text.Color = Config.Colors.Text;
+                text.Color = Config.Colors["text"];
                 text.DisplayedString = "";
             };
 
@@ -63,7 +58,7 @@ namespace SMUS.Module
             var prev = text.Color;
 
             text.Position += new Vector2f(1,1);
-            text.Color = Config.Colors.Shadow;
+            text.Color = Config.Colors["shadow"];
             text.Draw(Program.Window, RenderStates.Default);
 
             text.Color = prev;

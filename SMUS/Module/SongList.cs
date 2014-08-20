@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Timers;
+using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -15,6 +15,7 @@ namespace SMUS.Module
         private readonly Vector2f basePosition = new Vector2f(5, 0);
         private bool updateText = true;
         private float yScroll;
+        private readonly object addLock = new object();
 
         public Font Font { get; set; }
 
@@ -47,20 +48,27 @@ namespace SMUS.Module
             var fileList = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).AsParallel()
                 .Where(s => regx.IsMatch(s));
 
-            foreach (string s in fileList)
+            Task<Song>[] tasks = fileList.Select(s => Task.Run(() =>
             {
                 try
                 {
-                    Add(new Song(this, s, Font));
+                    lock (Font)
+                    {
+                        return new Song(s, Font);
+                    }
                 }
-                catch
+                catch (Exception)
                 {
                     Console.WriteLine("Corrupted File: " + Path.GetFileName(s) + " - skipped.");
+                    return null;
                 }
-            }
 
-            
-         
+            })).ToArray();
+
+            Task.WaitAll(tasks);
+
+            foreach (var song in tasks.Where(song => song.Result != null))
+                Add(song.Result);
         }
 
         public void LoadFromMultipleDirectories(IEnumerable<string> paths)

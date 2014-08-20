@@ -53,12 +53,12 @@ namespace SMUS.Module
 
             //Drop shadow.
             sprite.Position += new Vector2f(1, 1);
-            sprite.Color = Config.Colors.Shadow;
+            sprite.Color = Config.Colors["shadow"];
             sprite.Draw(Program.Window, RenderStates.Default);
 
             //Main draw.
             sprite.Position -= new Vector2f(1, 1);
-            sprite.Color = Config.Colors.Buttons;
+            sprite.Color = Config.Colors["buttons"];
             sprite.Draw(Program.Window, RenderStates.Default);
         }
 

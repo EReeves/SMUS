@@ -14,7 +14,7 @@ namespace SMUS.Module
             var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
             sprite = new Sprite(tex)
             {
-                Color = Config.Colors.Border,
+                Color = Config.Colors["border"],
                 Position = new Vector2f(0, 0)
             };
         }
@@ -23,7 +23,7 @@ namespace SMUS.Module
         {
             //TODO: Draw and render this as a texture rather than manually.
 
-            sprite.Color = Config.Colors.Shadow;
+            sprite.Color = Config.Colors["shadow"];
             //Top shadow
             sprite.Scale = new Vector2f(Program.Window.Size.X, borderSize);
             sprite.Position = new Vector2f(0, 1);
@@ -33,7 +33,7 @@ namespace SMUS.Module
             sprite.Position = new Vector2f(Program.Window.Size.X-borderSize-1, 0);
             sprite.Draw(Program.Window, RenderStates.Default);
 
-            sprite.Color = Config.Colors.Border;
+            sprite.Color = Config.Colors["border"];
             //Bottom           
             sprite.Scale = new Vector2f(Program.Window.Size.X, borderSize);
             sprite.Position = new Vector2f(0, Program.Window.Size.Y - borderSize);

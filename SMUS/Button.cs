@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Tools;
@@ -20,8 +17,8 @@ namespace SMUS.Module
             sprite = spr;
             shadowSprite = new BatchedSprite(spr.Position, spr.AtlasPosition, spr.ZOrder - 1);
 
-            spr.Colour = Config.Colors.Buttons;
-            shadowSprite.Colour = Config.Colors.Shadow;
+            spr.Colour = Config.Colors["buttons"];
+            shadowSprite.Colour = Config.Colors["shadow"];
             shadowSprite.Position += new Vector2f(0, 1);
 
             Program.SpriteBatch.Add(spr);

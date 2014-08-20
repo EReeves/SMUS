@@ -58,7 +58,7 @@ namespace SMUS
                 if (!WindowFocused)
                     Thread.Sleep(200); //Doesn't need to run as smooth.
         
-                Window.Clear(Config.Colors.Background);
+                Window.Clear(Config.Colors["background"]);
 
                 if ((Keyboard.IsKeyPressed(Keyboard.Key.LAlt) || Keyboard.IsKeyPressed(Keyboard.Key.RAlt)) &&
                     Keyboard.IsKeyPressed(Keyboard.Key.F4))
@@ -84,6 +84,7 @@ namespace SMUS
              */
             var pBar = new ProgressBar();
             var songList = new SongList(baseFont);
+            Audio.CurrentSongList = songList;
             var dragWindow = new DragWindow();
             var playButton = new PlayButton();
             var border = new Border();
@@ -112,12 +113,10 @@ namespace SMUS
 
             //Remove duplicates.
             var duplicates = songList.GroupBy(x => x.Name).Where(x=>x.Count() > 1);
-            foreach (var duplicate in duplicates)
+            foreach (Song song in duplicates
+                .SelectMany(duplicate => duplicate.Take(duplicate.Count()-1)))
             {
-                foreach (Song song in duplicate.Take(duplicate.Count()-1))
-                {
-                    songList.Remove(song);
-                }
+                songList.Remove(song);
             }
         }
     }

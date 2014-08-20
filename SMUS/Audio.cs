@@ -14,6 +14,7 @@ namespace SMUS
         public static Song CurrentSong;
         public static bool IsPlaying;
         public static State NextState;
+        public static SongList CurrentSongList { get; set; }
 
         public enum State
         {
@@ -62,8 +63,10 @@ namespace SMUS
             return true;
         }
 
-        public static void PlayNext(SongList sl, Song current)
+        public static void PlayNext(Song current)
         {
+            var sl = CurrentSongList;
+
             if (Current == null || sl == null) return;
 
             switch (NextState)
@@ -88,8 +91,10 @@ namespace SMUS
             }
         }
 
-        public static void PlayPrev(SongList sl, Song current)
+        public static void PlayPrev(Song current)
         {
+            var sl = CurrentSongList;
+
             if (Current == null || sl == null) return;
 
             switch (NextState)

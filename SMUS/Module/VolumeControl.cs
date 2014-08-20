@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -21,7 +16,7 @@ namespace SMUS.Module
             var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
             sprite = new Sprite(tex)
             {
-                Color = Config.Colors.Volume,
+                Color = Config.Colors["volume"],
                 Position = new Vector2f(Program.Window.Size.X - width, 0),
                 Scale = new Vector2f(width,Program.Window.Size.Y)
             };

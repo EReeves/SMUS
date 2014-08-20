@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IrrKlang;
 using SFML.Window;
 
@@ -42,11 +38,11 @@ namespace SMUS.Module
                         Audio.Current.PlayPosition += pos;
                     break;
                 case Keyboard.Key.Up:
-                    Audio.PlayPrev(songList, Audio.CurrentSong);
+                    Audio.PlayPrev(Audio.CurrentSong);
                     songList.ScrollToCurrentSong();
                     break;
                 case Keyboard.Key.Down:
-                    Audio.PlayNext(songList, Audio.CurrentSong);
+                    Audio.PlayNext(Audio.CurrentSong);
                     songList.ScrollToCurrentSong();
                     break;
             }

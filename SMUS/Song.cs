@@ -11,31 +11,26 @@ namespace SMUS
     //Contains both render and song data.
     internal class Song : Text
     {
-        private readonly SongList songList;
-
         public bool IsPlaying = false;
         public string Name { get; private set; }
         public string Path { get; private set; }
 
-        public Song(SongList _songList, string _path, Font _font)
+        public Song(string _path, Font _font)
             : base("SongText", _font)
         {
             Path = _path;
-            songList = _songList;
-
-            
 
             MetaData md = MetaData.Create(_path);
-            SetNameFromMetaData(md);
-            DisplayedString = Name;
+             SetNameFromMetaData(md);
+             DisplayedString = Name;
 
             //formatting
-            CharacterSize = 14;
-            Color = Color.Black;
+             CharacterSize = 14;
+             Color = Color.Black;
 
-            Program.Window.MouseButtonPressed += (o, e) => CollisionCheck(e);
+             Program.Window.MouseButtonPressed += (o, e) => CollisionCheck(e);
 
-            md.Dispose();
+             md.Dispose();
 
         }
 
@@ -49,18 +44,16 @@ namespace SMUS
             window.Draw(this, RenderStates.Default);
             //Text
             Position -= new Vector2f(0, 1);
-            Color = Config.Colors.Text;
+            Color = Config.Colors["text"];
             window.Draw(this, RenderStates.Default);
         }
 
         public void Update()
         {
-            if (IsPlaying && FinishedPlaying())
-            {
-                Style = Styles.Regular;
-                Audio.PlayNext(songList, this);
-                IsPlaying = false;
-            }
+            if (!IsPlaying || !FinishedPlaying()) return;
+            Style = Styles.Regular;
+            Audio.PlayNext(this);
+            IsPlaying = false;
         }
 
         public void Play()
@@ -113,7 +106,8 @@ namespace SMUS
         {
             if (!Program.WindowFocused) return;
             if (e.Button != Mouse.Button.Left) return;
-            if (!(Position.Y >= 0) || !(Position.Y <= Program.Window.Size.Y)) return;
+            if (Position.X == 0) return; //Bugfix, position was reset.
+            if (!(Position.Y >= 0 && Position.Y <= Program.Window.Size.Y)) return;
             Vector2i pos = Mouse.GetPosition(Program.Window);
             if (pos.X >= Program.Window.Size.X - Program.Window.Size.X/4) return;
             if (pos.X >= Position.X && pos.Y >= Position.Y &&
