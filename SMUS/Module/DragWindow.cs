@@ -21,8 +21,6 @@ namespace SMUS.Module
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Right))
                 {
-//                    Program.Window.Position -= mousePos - Mouse.GetPosition();
-//                    mousePos = Mouse.GetPosition();
                     Program.Window.Position = Mouse.GetPosition() - relPos;
                 }
                 else
