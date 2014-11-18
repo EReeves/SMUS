@@ -27,3 +27,9 @@ Under the Resouces/Config/ folder is a config.xml, you will need to add your dir
 * The Up and Down keys are used to skip through songs.
 
 * Alt+F4 exits.
+
+###Global Hotkeys
+
+* Alt + Right/Left Keys skips through songs.
+
+* Alt + Up/Down Keys changes the volume.

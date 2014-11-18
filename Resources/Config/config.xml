@@ -4,7 +4,7 @@
     <musicdir>
         <!-- Format: <dir>C:/Music</dir> -->
         <!-- You can list multiple directories -->
-        <dir>C:/Users/reeve_000/Desktop/Music</dir>
+        <dir>C:/Users/Evan/Music</dir>
     </musicdir>
 
     <!-- Just change the rgba values here.-->

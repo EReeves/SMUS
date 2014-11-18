@@ -42,14 +42,33 @@ namespace SMUS.Module
                 case 0:
                     break;
                 case 1:
-                    if (Audio.Engine.SoundVolume < 1f)
-                        linearVolume += 0.05f;
+                    Up(0.05f);
                     break;
                 case -1:
-                    if (Audio.Engine.SoundVolume > 0f)
-                        linearVolume -= 0.05f;
+                    Down(0.05f);
                     break;
             }
+
+            float percent = ((float)Math.Exp(linearVolume) - 1) / ((float)Math.E - 1);
+            Audio.Engine.SoundVolume = percent;
+        }
+
+        public void Up(float amount)
+        {
+            if (!(Audio.Engine.SoundVolume < 1f)) return;
+            linearVolume += amount;
+            RecalculateVolume();
+        }
+
+        public void Down(float amount)
+        {
+            if (!(Audio.Engine.SoundVolume > 0f)) return;
+            linearVolume -= amount;
+            RecalculateVolume();
+        }
+
+        private void RecalculateVolume()
+        {
 
             float percent = ((float)Math.Exp(linearVolume) - 1) / ((float)Math.E - 1);
             Audio.Engine.SoundVolume = percent;
