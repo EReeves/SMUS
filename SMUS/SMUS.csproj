@@ -40,6 +40,9 @@
   <PropertyGroup>
     <StartupObject>SMUS.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="irrKlang.NET4">
       <HintPath>..\lib\iirklang\irrKlang.NET4.dll</HintPath>
@@ -98,6 +101,9 @@
       <Project>{5d922786-736b-455e-b1ce-b842ec549e3f}</Project>
       <Name>SFML.Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

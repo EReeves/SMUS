@@ -30,7 +30,7 @@ namespace SMUS
                 if (!WindowFocused)
                     Window.Position += new Vector2i(0, 0);
             };
-            
+ 
             //Initialize Audio
             Audio.StartEngine();
 
