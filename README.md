@@ -20,4 +20,10 @@ Under the Resouces/Config/ folder is a config.xml, you will need to add your dir
 
 * Hold right click and scroll to change the volume.
 
+* Start typing for a simple search
+
+* Left and Right are used to scroll through songs
+
+* Up and Down are used to skip songs
+
 * Alt+F4 exits.
