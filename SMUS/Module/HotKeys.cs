@@ -46,6 +46,29 @@ namespace SMUS.Module
             {
                 volumeControl.Down(0.1f);
             }
+
+#if !MONO //I have no idea how to do this with mono, not too worried at the moment.
+         
+            //Media keys/WinAPI
+            if (WINKeyboard.IsKeyDownOnce(0xB0)) //NextTrack VK
+            {
+                Audio.PlayNext(Audio.CurrentSong);
+            }
+
+            if (WINKeyboard.IsKeyDownOnce(0xB1)) //PrevTrack VK
+            {
+                Audio.PlayPrev(Audio.CurrentSong);
+            }
+
+            if (WINKeyboard.IsKeyDownOnce(0xB3)) //Play/Pause VK
+            {
+                if (Audio.IsPlaying)
+                    Audio.Pause();
+                else
+                    Audio.Resume();
+            }
+
+#endif
         }
 
         private void ArrowKeys(KeyEventArgs e)
