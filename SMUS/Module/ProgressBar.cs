@@ -10,7 +10,7 @@ namespace SMUS.Module
 
         public ProgressBar()
         {
-            var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
+            var tex = new Texture(Program.AssPath + "/Resources/Textures/blank.png");
             sprite = new Sprite(tex)
             {
                 Position = new Vector2f(0, 0),

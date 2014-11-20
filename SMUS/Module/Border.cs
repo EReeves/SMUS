@@ -11,7 +11,7 @@ namespace SMUS.Module
 
         public Border()
         {
-            var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
+            var tex = new Texture(Program.AssPath + "/Resources/Textures/blank.png");
             sprite = new Sprite(tex)
             {
                 Color = Config.Colors["border"],

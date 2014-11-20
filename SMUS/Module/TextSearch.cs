@@ -36,7 +36,7 @@ namespace SMUS.Module
             text.CharacterSize = 26;
             text.Font.GetTexture(26).Smooth = false;
 
-            var tex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/blank.png");
+            var tex = new Texture(Program.AssPath + "/Resources/Textures/blank.png");
             backgroundSprite = new Sprite(tex) {Color = new Color(0, 0, 0, 200)};
 
             text.DisplayedString = "a";

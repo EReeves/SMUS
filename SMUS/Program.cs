@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using System.Threading;
 using SFML.Graphics;
 using SFML.Window;
@@ -16,6 +18,7 @@ namespace SMUS
         public static SpriteBatch SpriteBatch;
         public static AtlasData AtlasData;        
         public static bool WindowFocused = true;
+        public static string AssPath;
 
         private static void Main(string[] args)
         {
@@ -30,15 +33,24 @@ namespace SMUS
                 if (!WindowFocused)
                     Window.Position += new Vector2i(0, 0);
             };
+
+            //Make sure the window can close properly.
+            Window.Closed += (o,e) => Window.Close();
+            Window.Closed += (o, e) => { if (Audio.Engine != null) Audio.Engine.Dispose(); };
+            Window.Closed += (o, e) => IsRunning = false;
+
+            //Get bin directory.
+            var ass = Assembly.GetExecutingAssembly();
+            AssPath = Path.GetDirectoryName(ass.Location);
  
             //Initialize Audio
             Audio.StartEngine();
 
             //Config
-            Config.PopulateConfig(Directory.GetCurrentDirectory() + "/Resources/Config/config.xml");
+            Config.PopulateConfig(AssPath + "/Resources/Config/config.xml");
             
             //SpriteBatch/Atlas
-            AtlasData = new AtlasData(Directory.GetCurrentDirectory() + "/Resources/Textures/Atlas");
+            AtlasData = new AtlasData(AssPath + "/Resources/Textures/Atlas");
             SpriteBatch = new SpriteBatch(AtlasData.AtlasTexture);
 
             //Container
@@ -76,7 +88,7 @@ namespace SMUS
         private static void LoadModules(ModuleContainer moduleContainer)
         {
             //Global resource/s.
-            var baseFont = new Font(Directory.GetCurrentDirectory() + "/Resources/Fonts/SourceSansPro-Regular.otf");
+            var baseFont = new Font(AssPath + "/Resources/Fonts/SourceSansPro-Regular.otf");
             baseFont.GetTexture(14).Smooth = false;
             //Modules
             /*  Modules shouldn't depend on other modules unless absolutely neccessary.

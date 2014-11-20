@@ -15,8 +15,8 @@ namespace SMUS.Module
 
         public PlayButton()
         {
-            playTex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/play.png");
-            pauseTex = new Texture(Directory.GetCurrentDirectory() + "/Resources/Textures/pause.png");
+            playTex = new Texture(Program.AssPath + "/Resources/Textures/play.png");
+            pauseTex = new Texture(Program.AssPath + "/Resources/Textures/pause.png");
             //sprite is initialized here.
             SetTexture(playTex);
 
