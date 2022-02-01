@@ -12,19 +12,17 @@ Under the Resouces/Config/ folder is a config.xml, you will need to add your dir
 
 ##Usage
 
-* Click on things to click on things.
-
-* You can scroll through the music list.
+* Scroll through the music list via mousewheel.
 
 * Hold right click and drag to move the window.
 
-* Hold right click and scroll to change the volume.
+* Hold right click and scroll (via mousewheel) to change the volume.
 
-* Start typing for a simple search.
+* Just start typing to search for songs.
 
-* The Left and Right keys are used to scroll through songs.
+* Press the Left and Right keys to scroll through songs.
 
-* The Up and Down keys are used to skip through songs.
+* Press the Up and Down keys to skip through songs.
 
 * Alt+F4 exits.
 
